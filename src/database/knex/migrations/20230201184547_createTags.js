@@ -12,7 +12,7 @@ exports.up = (knex) =>
       .references("id")
       .inTable("users")
       .onDelete("CASCADE");
-    
+
     table.text("name").notNullable();
   });
 
