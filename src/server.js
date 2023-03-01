@@ -5,11 +5,12 @@ const app = express();
 const PORT = 3333;
 const appRouter = require("./routes");
 const { UPLOADS_FOLDER } = require("./configs/upload");
+const cors = require("cors");
 
 app.listen(PORT, () =>
   console.log(`Server listening on http://localhost:${PORT}`)
 );
-
+app.use(cors());
 app.use(express.json());
 app.use(appRouter);
 app.use("/files", express.static(UPLOADS_FOLDER));
