@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const PORT = 3333;
 const appRouter = require("./routes");
-const { json } = require("express");
+const { UPLOADS_FOLDER } = require("./configs/upload");
 
 app.listen(PORT, () =>
   console.log(`Server listening on http://localhost:${PORT}`)
@@ -12,6 +12,7 @@ app.listen(PORT, () =>
 
 app.use(express.json());
 app.use(appRouter);
+app.use("/files", express.static(UPLOADS_FOLDER));
 app.use((error, request, response, next) => {
   if (error instanceof AppError) {
     return response.status(error.statusCode).json({
