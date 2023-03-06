@@ -10,7 +10,7 @@ const cors = require("cors");
 app.listen(PORT, () =>
   console.log(`Server listening on http://localhost:${PORT}`)
 );
-app.use(cors());
+
 app.use(express.json());
 app.use(appRouter);
 app.use("/files", express.static(UPLOADS_FOLDER));
