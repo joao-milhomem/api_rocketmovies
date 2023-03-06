@@ -25,7 +25,7 @@ class UsersControllers {
 
   async update(request, response) {
     const { name, email, password, old_password } = request.body;
-    const user_id  = request.user.id;
+    const user_id = request.user.id;
 
     const user = await knex("users").where({ id: user_id }).first();
 
@@ -39,7 +39,11 @@ class UsersControllers {
       throw new AppError("Email já está em uso");
     }
 
-    if (password && !old_password) {
+    if (old_password && !password) {
+      throw new AppError("Digite sua nova senha!", 401);
+    }
+
+    if (password && !old_password || old_password === undefined) {
       throw new AppError("Digite sua antiga senha");
     }
 
