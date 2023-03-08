@@ -43,8 +43,8 @@ class UsersControllers {
       throw new AppError("Digite sua nova senha!", 401);
     }
 
-    if (password && !old_password || old_password === undefined) {
-      throw new AppError("Digite sua antiga senha");
+    if (password && !old_password) {
+      throw new AppError("Digite sua antiga senha!", 401);
     }
 
     if (password && old_password) {
@@ -59,9 +59,9 @@ class UsersControllers {
     user.name = name ?? user.name;
     user.email = email ?? user.email;
 
-    await knex("users").where({ id: user.id }).update({
-      name,
-      email,
+    await knex("users").where({ id: user_id }).update({
+      name: user.name,
+      email: user.email,
       password: user.password,
     });
 
