@@ -4,7 +4,6 @@
   "description": "API com Express feita no desafio do Explorer - Rocketseat",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./src/server.js",
     "migrate": "knex migrate:latest",
     "start": "pm2-runtime start ecosystem.config.js --env production"
