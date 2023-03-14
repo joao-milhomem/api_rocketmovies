@@ -1,4 +1,4 @@
-const { default: knex } = require("knex");
+const knex = require("knex");
 const config = require("../../../knexfile");
 const connection = knex(config.development);
 
