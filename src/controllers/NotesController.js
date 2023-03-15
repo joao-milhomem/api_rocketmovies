@@ -6,8 +6,8 @@ class NotesController {
     const user_id = request.user.id;
     const { title, description, rating, tags } = request.body;
 
-    if (rating < 1 || rating > 5) {
-      throw new AppError("Digite uma nota entre 1 e 5");
+    if (rating < 0 || rating > 5) {
+      throw new AppError("Digite uma nota entre 0 e 5");
     }
 
     const note_id = await knex("notes").insert({

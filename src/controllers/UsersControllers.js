@@ -49,10 +49,11 @@ class UsersControllers {
 
     if (password && old_password) {
       const checkPassword = await compare(old_password, user.password);
-      if (!checkPassword) {
-        throw new AppError("Senhas não conferem");
-      } else {
+
+      if (checkPassword) {
         user.password = await hash(password, 8);
+      } else {
+        throw new AppError("Senhas não conferem", 401);
       }
     }
 
