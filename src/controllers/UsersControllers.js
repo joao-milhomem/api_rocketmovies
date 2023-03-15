@@ -35,8 +35,10 @@ class UsersControllers {
 
     const emailOwner = await knex("users").where({ email }).first();
 
-    if (emailOwner && emailOwner.id !== user.id) {
-      throw new AppError("Email já está em uso");
+    if (!emailOwner) {
+      user.email = email
+    } else if (emailOwner.id != user_id) {
+      throw new AppError("Email já está em uso",401);
     }
 
     if (old_password && !password) {
@@ -58,7 +60,7 @@ class UsersControllers {
     }
 
     user.name = name ?? user.name;
-    user.email = email ?? user.email;
+    // user.email = email ?? user.email;
 
     await knex("users").where({ id: user_id }).update({
       name: user.name,

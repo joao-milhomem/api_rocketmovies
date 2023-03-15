@@ -10,7 +10,7 @@ class NotesController {
       throw new AppError("Digite uma nota entre 0 e 5");
     }
 
-    const note_id = await knex("notes").insert({
+    const [note_id,] = await knex("notes").insert({
       title,
       description,
       rating,
