@@ -2,7 +2,7 @@ const knex = require("../database/knex");
 const AppError = require("../utils/AppError");
 const { hash, compare } = require("bcryptjs");
 
-const UserQuerys = require("../database/knex/querys/userQuerys");
+const UserQuerys = require("../database/knex/querys/UserQuerys");
 const CreateUser = require("../services/CreateUser");
 
 class UsersControllers {
