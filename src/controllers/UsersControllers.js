@@ -2,23 +2,17 @@ const knex = require("../database/knex");
 const AppError = require("../utils/AppError");
 const { hash, compare } = require("bcryptjs");
 
+const UserQuerys = require("../database/knex/querys/userQuerys");
+const CreateUser = require("../services/CreateUser");
+
 class UsersControllers {
   async create(request, response) {
     const { name, email, password } = request.body;
 
-    const user = await knex("users").where({ email }).first();
+    const userQuerys = new UserQuerys();
+    const createUser = new CreateUser(userQuerys);
 
-    if (user) {
-      throw new AppError("Esse email já esta em uso");
-    }
-
-    const encryptedPassword = await hash(password, 8);
-
-    await knex("users").insert({
-      name,
-      email,
-      password: encryptedPassword,
-    });
+    await createUser.exec({ name, email, password });
 
     return response.json({});
   }
@@ -36,9 +30,9 @@ class UsersControllers {
     const emailOwner = await knex("users").where({ email }).first();
 
     if (!emailOwner) {
-      user.email = email
+      user.email = email;
     } else if (emailOwner.id != user_id) {
-      throw new AppError("Email já está em uso",401);
+      throw new AppError("Email já está em uso", 401);
     }
 
     if (old_password && !password) {
